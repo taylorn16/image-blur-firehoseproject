@@ -58,6 +58,8 @@ class Image
     self.get_coords_to_blur(distance).each do |coord|
       coord.blur_surrounding
     end
+
+    return self
   end
 
   # Class methods for help

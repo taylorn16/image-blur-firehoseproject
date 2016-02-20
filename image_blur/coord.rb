@@ -42,6 +42,8 @@ class Coord
     coords.add Coord.new(@row + 1, @col, @image) unless self.is_bottom?
     coords.add Coord.new(@row, @col - 1, @image) unless self.is_left?
     coords.add Coord.new(@row, @col + 1, @image) unless self.is_right?
+
+    coords
   end
 
 end
