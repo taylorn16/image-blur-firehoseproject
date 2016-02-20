@@ -1,5 +1,3 @@
-require 'set'
-
 class Image
 
   attr_reader :pixels
@@ -14,12 +12,13 @@ class Image
     end
   end
 
+  # Uses the class method to print the pixel data
   def output_image
     Image.print_pixels(@pixels)
-
-    return self
   end
 
+  # Helper for blur method
+  # Finds ones without modifying anything in the pixels
   def find_ones
     coords = Set.new
 
@@ -64,6 +63,8 @@ class Image
   end
 
   # Class methods for help
+
+  
   def self.random_pixels(height, width)
     pixels = Array.new
     odds = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1]
@@ -75,7 +76,7 @@ class Image
     return pixels
   end
 
-  # Takes array of pixel data
+  # Takes array of pixel data and prints it
   def self.print_pixels(pixels)
     pixels.each do |row|
       puts row.map {|i| i.to_s}.join('')
@@ -86,59 +87,3 @@ class Image
   end
 
 end
-
-# A small abstraction class to take some logic out of the main class
-# Each coordinate has a row, col (position) and an image instance that it belongs to
-class Coord
-
-  attr_reader :row, :col, :image
-
-  def initialize(row, col, image)
-    @row = row
-    @col = col
-    @image = image
-  end
-
-  def is_right?
-    !(@col < @image.pixels[0].size - 1)
-  end
-
-  def is_left?
-    !(@col > 0)
-  end
-
-  def is_top?
-    !(@row > 0)
-  end
-
-  def is_bottom?
-    !(@row < @image.pixels.size - 1)
-  end
-
-  def blur_surrounding
-    ary = @image.pixels
-
-    ary[@row - 1][@col] = 1 unless self.is_top?
-    ary[@row + 1][@col] = 1 unless self.is_bottom?
-    ary[@row][@col - 1] = 1 unless self.is_left?
-    ary[@row][@col + 1] = 1 unless self.is_right?
-
-    return self
-  end
-
-  def get_surrounding
-    coords = Set.new
-
-    coords.add Coord.new(@row - 1, @col, @image) unless self.is_top?
-    coords.add Coord.new(@row + 1, @col, @image) unless self.is_bottom?
-    coords.add Coord.new(@row, @col - 1, @image) unless self.is_left?
-    coords.add Coord.new(@row, @col + 1, @image) unless self.is_right?
-
-    return coords
-  end
-
-end
-
-img = Image.new(Image.random_pixels(10, 10)).output_image
-
-img.blur.output_image
