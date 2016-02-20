@@ -30,7 +30,7 @@ class Image
       end
     end
 
-    return coords
+    coords
   end
 
   # Helper for blur method
@@ -48,7 +48,7 @@ class Image
       distance = distance - 1
     end
 
-    return coords_to_blur
+    coords_to_blur
   end
 
   # Main Blur Method
@@ -58,22 +58,20 @@ class Image
     self.get_coords_to_blur(distance).each do |coord|
       coord.blur_surrounding
     end
-
-    return self
   end
 
   # Class methods for help
 
-  
+
   def self.random_pixels(height, width)
     pixels = Array.new
-    odds = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1]
+    odds = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
 
     (1..height).to_a.each do |row|
       pixels.push Array.new(width){|i| odds.sample}
     end
 
-    return pixels
+    pixels
   end
 
   # Takes array of pixel data and prints it
@@ -81,9 +79,7 @@ class Image
     pixels.each do |row|
       puts row.map {|i| i.to_s}.join('')
     end
-
     puts "\n"
-    return self
   end
 
 end

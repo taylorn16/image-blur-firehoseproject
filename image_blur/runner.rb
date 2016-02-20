@@ -1,6 +1,6 @@
 require 'set'
-require 'image'
-require 'coord'
+require_relative 'image'
+require_relative 'coord'
 
 # Execute stuff here
 

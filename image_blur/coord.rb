@@ -33,8 +33,6 @@ class Coord
     ary[@row + 1][@col] = 1 unless self.is_bottom?
     ary[@row][@col - 1] = 1 unless self.is_left?
     ary[@row][@col + 1] = 1 unless self.is_right?
-
-    return self
   end
 
   def get_surrounding
@@ -44,8 +42,6 @@ class Coord
     coords.add Coord.new(@row + 1, @col, @image) unless self.is_bottom?
     coords.add Coord.new(@row, @col - 1, @image) unless self.is_left?
     coords.add Coord.new(@row, @col + 1, @image) unless self.is_right?
-
-    return coords
   end
 
 end
