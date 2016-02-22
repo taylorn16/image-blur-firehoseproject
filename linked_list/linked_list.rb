@@ -43,17 +43,39 @@ class LinkedList
   end
 
   def reverse
-    # TODO: implement this method
+    unless @n <= 1
+      index = @n - 2
+      end_node = @tail
+      before_end_node = self.nth_node(index)
+
+      (@n - 1).times do
+        index = index - 1
+        end_node.next_node = before_end_node
+        end_node = before_end_node
+
+        unless self.nth_node(index).nil?
+          before_end_node = self.nth_node(index)
+        else
+          end_node.next_node = nil
+        end
+      end
+
+      oldTail = @tail; oldHead = @head
+      @tail = oldHead; @head = oldTail
+
+      return self
+    else
+      puts "Nothing to reverse!"
+      return self
+    end
   end
 
-  # Indexed from 0
   def nth_node(n)
-    if n + 1 >= @n || n < 0                       # invalid index
+    if n + 1 > @n || n < 0                       # invalid index
       return nil
     end
 
     node = @head
-
     while n > 0
       node = node.next_node
       n = n - 1
