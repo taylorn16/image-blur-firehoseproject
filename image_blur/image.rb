@@ -2,17 +2,16 @@ class Image
 
   attr_reader :pixels
 
-  def initialize(pixels)
-    if !pixels.empty? && pixels.is_a?(Array)
-      @pixels = pixels
-      @height = pixels.size
-      @width = pixels[0].size
-    else
-      raise ArgumentError, "Input not an array or is empty"
-    end
+  def initialize(pixels = nil)
+    # TODO: use class method to generate pixels only if user doesn't pass in array
+    @pixels = pixels
+    @height = pixels.size
+    @width = pixels[0].size
   end
 
   # Uses the class method to print the pixel data
+  # TODO: put print_pixels an instance method
+  # Can ovveride the to string method
   def output_image
     Image.print_pixels(@pixels)
   end
@@ -38,6 +37,16 @@ class Image
     coords_to_blur = self.find_ones                                 # This is like the first "iteration," accounts for 1 unit of blur distance automatically
     coords_to_add = Set.new
 
+    # Explored, Frontier, To Add to Frontier (xtreme frontier?)
+    # Get ones, add to frontier
+    # Then, loop through frontier, get surrounding, and add them to xtreme frontier, and pop frontier to explored
+    # Every iteration is one manhattan distance
+    # Everything left in frontier gets put back in explored
+    # Everything left in explored gets blurred to one
+
+    # Also could use "has been checked in coord"
+
+    # Can use downto or upto or a for loop (Rubymonk?)
     while distance > 1                                              # For that^^ reason, this loop terminates at distance = 1, not distance = 0
       coords_to_blur.each do |coord|
         coords_to_add.merge(coord.get_surrounding)
@@ -56,6 +65,8 @@ class Image
     raise ArgumentError, 'Invalid blur distance' if distance < 1
 
     self.get_coords_to_blur(distance).each do |coord|
+      # Instead of blur_surrounding, just blur individually
+      # this way, no repeat functionality
       coord.blur_surrounding
     end
 

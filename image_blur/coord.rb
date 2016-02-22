@@ -15,24 +15,25 @@ class Coord
   end
 
   def is_left?
-    !(@col > 0)
+    @col <= 0
   end
 
   def is_top?
-    !(@row > 0)
+    @row <= 0
   end
 
   def is_bottom?
+    # TODO: Fix not declaration
     !(@row < @image.pixels.size - 1)
   end
 
   def blur_surrounding
-    ary = @image.pixels
+    pixels = @image.pixels
 
-    ary[@row - 1][@col] = 1 unless self.is_top?
-    ary[@row + 1][@col] = 1 unless self.is_bottom?
-    ary[@row][@col - 1] = 1 unless self.is_left?
-    ary[@row][@col + 1] = 1 unless self.is_right?
+    pixels[@row - 1][@col] = 1 unless self.is_top?
+    pixels[@row + 1][@col] = 1 unless self.is_bottom?
+    pixels[@row][@col - 1] = 1 unless self.is_left?
+    pixels[@row][@col + 1] = 1 unless self.is_right?
   end
 
   def get_surrounding
