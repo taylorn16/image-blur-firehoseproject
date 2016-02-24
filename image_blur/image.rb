@@ -11,10 +11,10 @@ class Image
   def to_s
     str = ""
     pixels.each do |row|
-      str = str + row.map {|i| i.to_s}.join('') + "\n"
+      str = str + row.map {|i| i.to_s}.join(' ') + "\n"
     end
 
-    return str
+    return str + "\n"
   end
 
   # Helper for blur method
@@ -59,33 +59,34 @@ class Image
 
   # Helper for blur method
   def get_pixels_to_blur(distance)
-    explored_pixels = self.find_ones
-    frontier_pixels = explored_pixels
+    explored_pixels = []
+    frontier_pixels = self.find_ones
     xtremefr_pixels = []
 
     while distance > 0
-      # Get the pixels surrounding the frontier and add them to the xtreme frontier, then pop frontier back to explored
+      # Get the pixels surrounding the frontier and add them to the xtreme frontier
+      # then pop frontier back to explored
       frontier_pixels.each do |coord|
         self.get_surrounding_pixels(coord).each do |c|
           xtremefr_pixels << c
         end
         explored_pixels << coord
       end
+      distance = distance - 1
 
       # Reset the frontier and xtreme frontier
       frontier_pixels = []
       frontier_pixels = xtremefr_pixels
       xtremefr_pixels = []
 
-      distance = distance - 1
-    end
+    end #end_while
 
-    # Put everything in frontier back in explored_pixels
+    # # Put everything in frontier back in explored_pixels
     frontier_pixels.size.times do
       explored_pixels << frontier_pixels.pop
     end
 
-    return explored_pixels.uniq!
+    return explored_pixels.uniq
   end
 
   # Main Blur Method
