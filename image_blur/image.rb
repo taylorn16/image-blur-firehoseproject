@@ -17,11 +17,23 @@ class Image
     return str + "\n"
   end
 
+  # Main Blur Method
+  def blur(distance = 1)
+    raise ArgumentError, 'Invalid blur distance' if distance < 1
+
+    get_pixels_to_blur(distance).each do |coord|
+      blur_pixel(coord)
+    end
+
+    return self
+  end
+
+  private
+
   # Helper for blur method
   # Finds ones without modifying anything
   def find_ones
     coords = []
-
     @pixels.each_with_index do |row, r|
       row.each_with_index do |col, c|
         if @pixels[r][c] == 1
@@ -29,45 +41,41 @@ class Image
         end
       end
     end
-
     coords
   end
 
   def blur_pixel(coord)
     row, col = coord
-    @pixels[row][col] = 1 unless self.is_invalid_pixel?(coord)
+    @pixels[row][col] = 1 unless is_invalid_pixel?(coord)
     return self
   end
 
   def is_invalid_pixel?(coord)
     row, col = coord
-
     col > @width - 1 || col < 0 || row > @height - 1 || row < 0
   end
 
   def get_surrounding_pixels(coord)
     row, col = coord
     coords = []
-
-    coords << [row - 1, col] unless self.is_invalid_pixel?([row - 1, col])
-    coords << [row + 1, col] unless self.is_invalid_pixel?([row + 1, col])
-    coords << [row, col - 1] unless self.is_invalid_pixel?([row, col - 1])
-    coords << [row, col + 1] unless self.is_invalid_pixel?([row, col + 1])
-
-    return coords
+    coords << [row - 1, col] unless is_invalid_pixel?([row - 1, col])
+    coords << [row + 1, col] unless is_invalid_pixel?([row + 1, col])
+    coords << [row, col - 1] unless is_invalid_pixel?([row, col - 1])
+    coords << [row, col + 1] unless is_invalid_pixel?([row, col + 1])
+    coords
   end
 
   # Helper for blur method
   def get_pixels_to_blur(distance)
     explored_pixels = []
-    frontier_pixels = self.find_ones
+    frontier_pixels = find_ones
     xtremefr_pixels = []
 
     while distance > 0
       # Get the pixels surrounding the frontier and add them to the xtreme frontier
       # then pop frontier back to explored
       frontier_pixels.each do |coord|
-        self.get_surrounding_pixels(coord).each do |c|
+        get_surrounding_pixels(coord).each do |c|
           xtremefr_pixels << c
         end
         explored_pixels << coord
@@ -81,23 +89,12 @@ class Image
 
     end #end_while
 
-    # # Put everything in frontier back in explored_pixels
+    # Put everything in frontier back in explored_pixels
     frontier_pixels.size.times do
       explored_pixels << frontier_pixels.pop
     end
 
     return explored_pixels.uniq
-  end
-
-  # Main Blur Method
-  def blur(distance = 1)
-    raise ArgumentError, 'Invalid blur distance' if distance < 1
-
-    self.get_pixels_to_blur(distance).each do |coord|
-      self.blur_pixel(coord)
-    end
-
-    return self
   end
 
   # Class methods for help
