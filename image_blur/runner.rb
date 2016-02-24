@@ -1,11 +1,14 @@
-require 'set'
 require_relative 'image'
-require_relative 'coord'
 
 # Execute stuff here
 
-img = Image.new(Image.random_pixels(15, 15))
+sample_pixels = [
+  [0, 0, 0, 1],
+  [0, 0, 0, 0],
+  [0, 0, 0, 0],
+  [0, 0, 1, 0]
+]
 
-img.output_image
+img = Image.new(sample_pixels)
 
-img.blur(2).output_image
+puts img.get_pixels_to_blur(1).inspect

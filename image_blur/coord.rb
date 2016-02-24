@@ -11,7 +11,7 @@ class Coord
   end
 
   def is_right?
-    !(@col < @image.pixels[0].size - 1)
+    @col >= @image.pixels[0].size - 1
   end
 
   def is_left?
@@ -23,8 +23,7 @@ class Coord
   end
 
   def is_bottom?
-    # TODO: Fix not declaration
-    !(@row < @image.pixels.size - 1)
+    @row >= @image.pixels.size - 1
   end
 
   def blur_surrounding
