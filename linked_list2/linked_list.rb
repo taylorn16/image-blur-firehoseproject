@@ -17,7 +17,30 @@ class LinkedListNode
   end
 
   def self.reverse_list(head_node)
+    unless head_node.nil?
+      first_node = nil
+      new_node = nil
+      current_node = nil
+      stack = Stack.new
 
+      until head_node.nil?                        # Push all the values into a stack
+        stack.push(head_node.value)
+        head_node = head_node.next_node
+      end
+
+      current_pop_value = stack.pop
+      first_node = LinkedListNode.new(current_pop_value)
+      current_node = first_node
+      until current_pop_value.nil?                        # Pop all the values into a new head node list
+        current_pop_value = stack.pop
+        current_node.next_node = LinkedListNode.new(current_pop_value)
+        current_node = current_node.next_node
+      end
+
+      first_node
+    else
+      nil
+    end
   end
 
 end
@@ -43,7 +66,7 @@ class Stack
   def pop
     tail = get_tail()
 
-    if ! tail.nil? && @data == tail                    # Last item
+    if ! tail.nil? && @data == tail     # Last item
       value = @data.value
       @data = nil
     elsif ! @data.nil?                  # Not empty and not the last item
