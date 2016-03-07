@@ -16,6 +16,7 @@ class LinkedListNode
     return
   end
 
+  # Ask Seth; this could use some work
   def self.reverse_list(head_node)
     unless head_node.nil?
       first_node = nil
@@ -33,6 +34,8 @@ class LinkedListNode
       current_node = first_node
       until current_pop_value.nil?                        # Pop all the values into a new head node list
         current_pop_value = stack.pop
+        break if current_pop_value.nil?
+
         current_node.next_node = LinkedListNode.new(current_pop_value)
         current_node = current_node.next_node
       end
