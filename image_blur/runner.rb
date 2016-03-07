@@ -12,4 +12,4 @@ sample_pixels = [
 img = Image.new
 
 puts img
-puts img.blur(1)
+puts img.blur(3)

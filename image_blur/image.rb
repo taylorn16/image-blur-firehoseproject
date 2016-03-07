@@ -86,7 +86,6 @@ class Image
       frontier_pixels = []
       frontier_pixels = xtremefr_pixels
       xtremefr_pixels = []
-
     end #end_while
 
     # Put everything in frontier back in explored_pixels

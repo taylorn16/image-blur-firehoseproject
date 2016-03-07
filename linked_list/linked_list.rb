@@ -38,8 +38,14 @@ class LinkedList
       @tail.next_node = nil
       @n = @n - 1
 
-      return node_to_pop
+      node_to_pop
     end
+  end
+
+  def swap_ends
+    @tail, @head = @head, @tail
+
+    self
   end
 
   def reverse
@@ -56,12 +62,12 @@ class LinkedList
         unless self.nth_node(index).nil?
           before_end_node = self.nth_node(index)
         else
+          # This is the tail
           end_node.next_node = nil
         end
       end
 
-      oldTail = @tail; oldHead = @head
-      @tail = oldHead; @head = oldTail
+      swap_ends
 
       return self
     else
