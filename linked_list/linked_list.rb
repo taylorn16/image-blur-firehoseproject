@@ -1,6 +1,7 @@
 class LinkedList
 
   attr_reader :head, :tail, :n
+  attr_writer :tail
 
   def initialize(head = nil, tail = nil, n = 0)
     @head = head
@@ -20,7 +21,7 @@ class LinkedList
     @tail = new_node
     @n = @n + 1
 
-    return self
+    self
   end
 
   def pop
@@ -69,10 +70,10 @@ class LinkedList
 
       swap_ends
 
-      return self
+      self
     else
       puts "Nothing to reverse!"
-      return self
+      self
     end
   end
 
@@ -87,7 +88,7 @@ class LinkedList
       n = n - 1
     end
 
-    return node
+    node
   end
 
   def is_empty?
@@ -95,7 +96,7 @@ class LinkedList
   end
 
   def print_values
-    if ! self.is_empty?
+    if ! (is_empty? || has_cycle?)
       node = @head
       while node.has_next?
         print "#{node.value} --> "
@@ -103,7 +104,33 @@ class LinkedList
       end
       print "#{@tail.value} --> nil [#{@n}]\n"
     else
-      puts "No values to print."
+      puts "Empty or list contains a cycle."
+    end
+
+    return
+  end
+
+  def nodes_equal?(node1, node2)
+    node1 == node2
+  end
+
+  def has_cycle?
+    unless is_empty? || @n == 1
+      tortoise = @head
+      hare = @head.next_node
+
+      until hare.next_node.nil? || hare.next_node.next_node.nil?
+        tortoise = tortoise.next_node
+        hare = hare.next_node
+        return true if nodes_equal? tortoise, hare
+
+        hare = hare.next_node
+        return true if nodes_equal? tortoise, hare
+      end
+
+      false
+    else
+      false
     end
   end
 
