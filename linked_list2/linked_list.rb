@@ -41,14 +41,19 @@ class Stack
   end
 
   def pop
-    unless @data.nil?
-      value = get_tail().value
-      del_tail()
+    tail = get_tail()
 
-      return value
-    else
-      return nil
+    if ! tail.nil? && @data == tail                    # Last item
+      value = @data.value
+      @data = nil
+    elsif ! @data.nil?                  # Not empty and not the last item
+      value = tail.value
+      delete_tail()
+    else                                # Empty
+      value = nil
     end
+
+    value
   end
 
   private
@@ -66,21 +71,28 @@ class Stack
     end
   end
 
-  def del_tail
+  def get_before_tail
     tail = get_tail()
 
-    unless @data.nil?
+    unless @data.nil? || @data == get_tail
       node = @data
       until node.next_node == tail
-        puts "#{node.next_node} == #{tail}"
         node = node.next_node
       end
 
-      node.next_node = nil
-
-      return self
+      node
     else
-      return nil
+      nil
+    end
+  end
+
+  def delete_tail
+    before_tail = get_before_tail
+
+    unless before_tail.nil?
+      before_tail.next_node = nil
+    else
+      return false
     end
   end
 

@@ -9,8 +9,18 @@ require_relative 'linked_list'
 
 s = Stack.new
 
-s.push(20).push(30).push(40)
+s.push(20).push(30).push(40).push(50)
 
-puts s.pop
-puts s.pop
-puts s.pop
+LinkedListNode.print_values(s.data)
+
+puts s.pop()
+LinkedListNode.print_values(s.data)
+puts s.pop()
+LinkedListNode.print_values(s.data)
+puts s.pop()
+LinkedListNode.print_values(s.data)
+puts s.pop()
+LinkedListNode.print_values(s.data)
+puts s.pop()
+
+LinkedListNode.print_values(s.data)
