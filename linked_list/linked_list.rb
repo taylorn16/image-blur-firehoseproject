@@ -114,12 +114,13 @@ class LinkedList
     node1 == node2
   end
 
+  # Watch edge cases?
   def has_cycle?
     unless is_empty? || @n == 1
       tortoise = @head
       hare = @head.next_node
 
-      until hare.next_node.nil? || hare.next_node.next_node.nil?
+      until hare.next_node.nil? || hare.next_node.next_node.nil? do
         tortoise = tortoise.next_node
         hare = hare.next_node
         return true if nodes_equal? tortoise, hare

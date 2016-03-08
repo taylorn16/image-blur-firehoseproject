@@ -29,6 +29,8 @@ class LinkedListNode
         head_node = head_node.next_node
       end
 
+      # OPTIMIZATION: just return @data from stack
+
       current_pop_value = stack.pop
       first_node = LinkedListNode.new(current_pop_value)
       current_node = first_node
