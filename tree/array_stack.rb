@@ -1,6 +1,6 @@
 class ArrayStack
-  def initialize(stack = nil)
-    @stack = stack.nil? ? [] : stack
+  def initialize(stack = [])
+    @stack = stack
   end
 
   def push(item)

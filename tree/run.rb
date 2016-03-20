@@ -1,5 +1,6 @@
 ## Execute stuff here
 require_relative 'array_stack'
+require_relative 'array_queue'
 require_relative 'tree'
 require_relative 'tree_node'
 
@@ -23,4 +24,6 @@ tree = Tree.new(two_node)
 
 puts tree.inspect
 puts "\n"
-puts tree.df_search(5).inspect
+puts tree.df_search_for(5).inspect
+puts "\n"
+puts tree.bf_search_for(5).inspect
