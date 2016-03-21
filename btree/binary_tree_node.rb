@@ -25,7 +25,7 @@ class BinaryTree
     end
 
     def less_than? other_node
-      ! greater_than? other_node
+      @payload < other_node.payload
     end
 
     def del_child(sym)
