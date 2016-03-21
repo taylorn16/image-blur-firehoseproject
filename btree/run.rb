@@ -1,5 +1,4 @@
 require_relative 'binary_tree'
-require_relative 'binary_tree_node'
 
 ## Execute stuff
 

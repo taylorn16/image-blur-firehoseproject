@@ -16,12 +16,26 @@ class BinaryTree
       ! @right.nil?
     end
 
+    def has_children?
+      has_left_child? || has_right_child?
+    end
+
     def greater_than? other_node
       @payload > other_node.payload
     end
 
     def less_than? other_node
       ! greater_than? other_node
+    end
+
+    def del_child(sym)
+      if sym == :left
+        @left = nil
+      elsif sym == :right
+        @right = nil
+      else
+        raise ArgumentError, 'Only :left and :right children can be deleted.'
+      end
     end
   end
 end
