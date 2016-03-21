@@ -1,7 +1,7 @@
 def collatz n
   sequence = [n]
   until n == 1 do
-    n = (n.even? ? n / 2 : 3*n + 1)
+    n = n.even? ? n / 2 : 3*n + 1
     sequence.push n
   end
   sequence
