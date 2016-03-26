@@ -21,8 +21,7 @@ class Tree
       end
       # If the stack is empty, we've searched all the nodes in the list and we can return nil
       # If not, pop it and keep going
-      current_node = nil
-      break if stack.empty?
+      return nil if stack.empty?
       current_node = stack.pop
     end
 
@@ -43,8 +42,7 @@ class Tree
         end
       end
 
-      current_node = nil
-      break if queue.empty?
+      return nil if queue.empty?
       current_node = queue.dequeue
     end
 

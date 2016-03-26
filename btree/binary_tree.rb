@@ -32,6 +32,7 @@ class BinaryTree
           end
 
         else # Nodes are equal
+          # TODO: pick a tie-breaker
           puts "Nodes are equal."
           raise StandardError, "Can't add identical items to *this* binary tree!"
         end
@@ -41,6 +42,7 @@ class BinaryTree
     return self
   end
 
+  # TODO: Break into traverse method
   def to_a(node = @root)
     return [] if @root.nil?
 
